@@ -1,26 +1,36 @@
-import Logo from "@/components/logo"
-import { Button } from "@/components/ui/button"
+"use client";
+
+import Logo from "@/components/logo";
+import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 // Navigation links array to be used in both desktop and mobile menus
-const navigationLinks = [
-  { href: "#", label: "Produtos", active: true },
-  { href: "#", label: "Usuários" },
-  { href: "#", label: "Categorias" },
-  { href: "#", label: "Alertas" },
-]
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  const navigationLinks = [
+    { href: "/", label: "Dashboard" },
+    { href: "/products", label: "Produtos" },
+    { href: "/users", label: "Usuários" },
+    { href: "/categories", label: "Categorias" },
+    { href: "/alerts", label: "Alertas" },
+  ];
+
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 justify-between gap-4 max-w-6xl mx-auto">
@@ -62,15 +72,16 @@ export function Navbar() {
                 <NavigationMenu className="max-w-none *:w-full">
                   <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                     {navigationLinks.map((link, index) => (
-                      <NavigationMenuItem key={index} className="w-full">
-                        <NavigationMenuLink
-                          href={link.href}
-                          className="py-1.5"
-                          active={link.active}
-                        >
-                          {link.label}
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
+                      <Link
+                        key={index}
+                        href={link.href}
+                        className={`${
+                          pathname === link.href &&
+                          "focus:bg-accent hover:bg-accent bg-accent text-accent-foreground"
+                        }  hover:bg-accent focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4`}
+                      >
+                        {link.label}
+                      </Link>
                     ))}
                   </NavigationMenuList>
                 </NavigationMenu>
@@ -79,29 +90,37 @@ export function Navbar() {
           </div>
           {/* Main nav */}
           <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
-              <Logo />
-            </a>
+            <Link href="/">
+              <Image
+                draggable="false"
+                src={"/logo.svg"}
+                alt="Logo"
+                width={0}
+                height={0}
+                priority
+                className="w-32 h-auto"
+              />
+            </Link>
             {/* Navigation menu */}
             <NavigationMenu className="h-full *:h-full max-md:hidden">
               <NavigationMenuList className="h-full gap-2">
                 {navigationLinks.map((link, index) => (
-                  <NavigationMenuItem key={index} className="h-full">
-                    <NavigationMenuLink
-                      active={link.active}
-                      href={link.href}
-                      className="text-muted-foreground hover:text-primary border-b-primary hover:border-b-primary data-[active]:border-b-primary h-full justify-center rounded-none border-y-2 border-transparent py-1.5 font-medium hover:bg-transparent data-[active]:bg-transparent!"
-                    >
-                      {link.label}
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className={`${
+                      pathname === link.href &&
+                      "focus:bg-accent hover:bg-accent bg-accent text-accent-foreground"
+                    }  hover:bg-accent focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4`}
+                  >
+                    {link.label}
+                  </Link>
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
         </div>
-        
       </div>
     </header>
-  )
+  );
 }

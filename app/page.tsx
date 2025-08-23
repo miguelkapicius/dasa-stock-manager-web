@@ -1,14 +1,7 @@
-import { CreateProductModal } from "@/components/create-product-modal"
-import { ProductsTable } from "@/components/products-table"
-
-export default async function Home() {
-
+export default function Dashboard() {
   return (
     <div>
-      <div className="space-y-4">
-        <CreateProductModal />
-        <ProductsTable />
-      </div>
+      <div>Dashboard</div>
     </div>
-  )
+  );
 }
