@@ -18,7 +18,9 @@ export default function RootLayout({
       <body cz-shortcut-listen="true" className={`antialiased`}>
         <ReactQueryProvider>
           <Navbar />
-          <main className="mt-12 max-w-6xl mx-auto">{children}</main>
+          <main className="mt-12 max-w-6xl mx-auto px-4 md:px-6">
+            {children}
+          </main>
           <Toaster />
         </ReactQueryProvider>
       </body>

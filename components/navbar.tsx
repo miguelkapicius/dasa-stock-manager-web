@@ -98,7 +98,7 @@ export function Navbar() {
                 width={0}
                 height={0}
                 priority
-                className="w-32 h-auto"
+                className="w-32 h-auto ml-2"
               />
             </Link>
             {/* Navigation menu */}
