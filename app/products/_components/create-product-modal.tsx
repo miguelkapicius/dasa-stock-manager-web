@@ -34,7 +34,7 @@ import {
   SelectValue,
 } from "../../../components/ui/select";
 import { useQuery } from "@tanstack/react-query";
-import type { Categorie } from "@/types/categorie.type";
+import type { Category } from "@/types/category.type";
 import { revalidateProducts } from "@/lib/actions";
 
 const createProductFormSchema = z.object({
@@ -120,7 +120,11 @@ export function CreateProductModal() {
                 <FormItem>
                   <FormLabel>Nome do Produto</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ex: Seringa" {...field} />
+                    <Input
+                      placeholder="Ex: Seringa"
+                      autoComplete="off"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -174,7 +178,7 @@ export function CreateProductModal() {
                       <SelectContent className="w-full">
                         <SelectGroup>
                           <SelectLabel>Categoria</SelectLabel>
-                          {categories.map((category: Categorie) => (
+                          {categories.map((category: Category) => (
                             <SelectItem key={category.id} value={category.id}>
                               <div
                                 style={{
